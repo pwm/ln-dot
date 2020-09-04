@@ -1,22 +1,22 @@
 # ln-dot
 
-Dump out the lightning network graph into a graphviz dot file
+Small util to dump the lightning network graph into a graphviz dot file.
 
-### 0. Build
+#### Install [stack](https://docs.haskellstack.org/en/stable/README/) and then build the code:
 
     # git clone git@github.com:pwm/ln-dot.git
     # cd ln-dot
     # stack build
 
-### 1. Get the graph
+#### Get the graph from your LN node, eg. a [raspiblitz](https://github.com/rootzoll/raspiblitz):
 
     # ssh raspiblitz 'lncli describegraph' > ln-graph.json
 
-### 2. Turn it into a dot file
+#### Turn it into a dot file:
 
     # stack exec ln-dot "ln-graph.json" > ln-graph.dot
 
-### 3. Make it into a pretty png or svg
+#### Install [graphviz](https://graphviz.org/) and make the dot file into a pretty png or svg:
 
     # sfdp -Tpng ln-graph.dot > ln-graph.png
     # sfdp -Tsvg ln-graph.dot > ln-graph.svg
