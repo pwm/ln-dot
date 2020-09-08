@@ -20,3 +20,6 @@ Small util to dump the lightning network graph into a graphviz dot file.
 
     # sfdp -Tpng ln-graph.dot > ln-graph.png
     # sfdp -Tsvg ln-graph.dot > ln-graph.svg
+
+![](https://cdn.rawgit.com/pwm/ln-dot/master/pics/ln-graph-neato-small.png)
+
