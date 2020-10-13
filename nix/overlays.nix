@@ -1,6 +1,6 @@
 { sources }:
 [
-  (final: prev: {
+  (_final: prev: {
     ln-dot = (import ./packages.nix { pkgs = prev; });
   })
 ]

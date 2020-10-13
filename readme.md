@@ -11,12 +11,11 @@ Small util to dump the lightning network graph into a graphviz dot file.
 
 with Nix:
 
-    $ nix-build nix/release.nix
+    $ nix-build nix/release.nix --attr exe
 
 with Cabal:
 
-    $ nix-shell
-    $ cabal build
+    $ nix-shell --run "cabal build"
 
 #### 3. Get the graph from your LN node, eg. your [raspiblitz](https://github.com/rootzoll/raspiblitz):
 

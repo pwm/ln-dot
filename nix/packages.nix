@@ -1,6 +1,6 @@
 { pkgs }: with pkgs;
 let
-  src-filter = import ./src-filter.nix;
+  src-filter = import ./lib/src-filter.nix;
 
   # A view of the project's source code, with only the Haskell dependencies
   ln-dot-src = src-filter.filter {
@@ -8,10 +8,13 @@ let
     allow = [
       (src-filter.matchExt "hs")
       ../app
-      ../ln-dot.cabal
-      ../package.yaml
       ../src
       ../src/LnDot
+      ../.hlint.yaml
+      ../cabal.project
+      ../hie.yaml
+      ../ln-dot.cabal
+      ../package.yaml
     ];
   };
 
@@ -21,27 +24,25 @@ let
         generated = haskell.lib.packagesFromDirectory {
           directory = ./packages;
         };
-        manual = haskellPackagesNew: haskellPackagesOld: {
-          # Inject the filtered source into the package
-          ln-dot = haskellPackagesOld.ln-dot.overrideAttrs (attrs: {
+        manual = _hfinal: hprev: {
+          ln-dot = hprev.ln-dot.overrideAttrs (attrs: {
+            # Inject the filtered source into the package
             src = ln-dot-src;
+            postConfigure = ''
+              ${hlint}/bin/hlint ${ln-dot-src}
+            '';
           });
         };
       in
       lib.composeExtensions generated manual;
   };
 
-  ghc = haskellPackages.ghc.withPackages (p:
+  ghc = haskellPackages.ghc.withPackages (_ps:
     haskellPackages.ln-dot.getBuildInputs.haskellBuildInputs
   );
 in
 {
   exe = haskellPackages.ln-dot;
-
-  # Check the source code with hlint
-  hlint = pkgs.runCommand "hlint" {} ''
-    ${pkgs.hlint}/bin/hlint ${ln-dot-src} | tee $out
-  '';
 
   devEnv = buildEnv {
     name = "ln-dot-env";
@@ -50,6 +51,7 @@ in
       cabal-install
       cabal2nix
       hlint
+      ormolu
       niv
       graphviz
     ];
