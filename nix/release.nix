@@ -2,4 +2,4 @@
 let
   pkgs = import ./. { inherit system; };
 in
-pkgs.ln-dot.exe
+pkgs.ln-dot
