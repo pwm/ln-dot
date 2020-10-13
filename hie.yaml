@@ -1,0 +1,10 @@
+cradle:
+  cabal:
+    - path: "src"
+      component: "lib:ln-dot"
+
+    - path: "app/Main.hs"
+      component: "ln-dot:exe:ln-dot"
+
+    - path: "app/Paths_ln_dot.hs"
+      component: "ln-dot:exe:ln-dot"
