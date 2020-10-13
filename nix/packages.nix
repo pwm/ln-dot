@@ -38,6 +38,11 @@ in
 {
   exe = haskellPackages.ln-dot;
 
+  # Check the source code with hlint
+  hlint = pkgs.runCommand "hlint" {} ''
+    ${pkgs.hlint}/bin/hlint ${ln-dot-src} | tee $out
+  '';
+
   devEnv = buildEnv {
     name = "ln-dot-env";
     paths = [
