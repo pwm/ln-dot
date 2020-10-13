@@ -23,6 +23,8 @@ in
     paths = [
       ghc
       cabal-install
+      cabal2nix
+      hlint
       niv
       graphviz
     ];
