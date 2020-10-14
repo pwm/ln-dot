@@ -4,7 +4,7 @@
 mkDerivation {
   pname = "ln-dot";
   version = "0.1.0.0";
-  src = builtins.path { path = ../..; name = "ln-dot"; };
+  src = ./.;
   isLibrary = true;
   isExecutable = true;
   libraryHaskellDepends = [

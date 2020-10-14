@@ -25,8 +25,7 @@ let
           directory = ./packages;
         };
         manual = _hfinal: hprev: {
-          ln-dot = hprev.ln-dot.overrideAttrs (attrs: {
-            # Inject the filtered source into the package
+          ln-dot = haskell.lib.overrideCabal hprev.ln-dot (_drv: {
             src = ln-dot-src;
             postConfigure = ''
               ${hlint}/bin/hlint ${ln-dot-src}
@@ -38,7 +37,7 @@ let
   };
 
   ghc = haskellPackages.ghc.withPackages (_ps:
-    haskellPackages.ln-dot.getBuildInputs.haskellBuildInputs
+    haskellPackages.ln-dot.getHaskellBuildInputs
   );
 in
 {
