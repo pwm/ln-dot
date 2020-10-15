@@ -37,7 +37,7 @@ let
   };
 
   ghc = haskellPackages.ghc.withPackages (_ps:
-    haskellPackages.ln-dot.getHaskellBuildInputs
+    haskell.lib.getHaskellBuildInputs haskellPackages.ln-dot
   );
 in
 {
