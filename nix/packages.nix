@@ -43,7 +43,7 @@ in
 {
   exe = haskellPackages.ln-dot;
 
-  devEnv = buildEnv {
+  shell = buildEnv {
     name = "ln-dot-env";
     paths = [
       ghc

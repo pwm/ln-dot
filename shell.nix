@@ -2,8 +2,11 @@
 let
   pkgs = import ./nix { inherit system; };
 in
-pkgs.mkShell {
+with pkgs; mkShell {
   buildInputs = [
-    pkgs.ln-dot.devEnv
+    ln-dot.shell
   ];
+  shellHook = ''
+    export LD_LIBRARY_PATH=${ln-dot.shell}/lib:$LD_LIBRARY_PATH
+  '';
 }
